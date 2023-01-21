@@ -1,5 +1,6 @@
 extends CharacterBody2D
 @onready var animation_player = $AnimationPlayer
+const BULLET = preload("res://bullet/bullet.tscn")
 
 enum State {
 	IDLE,
@@ -7,7 +8,6 @@ enum State {
 	ROLL_RIGHT_2,
 	ROLL_LEFT_1,
 	ROLL_LEFT_2,
-	LOOP
 }
 
 var state = State.IDLE
@@ -21,6 +21,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	# Events
+	process_events()
+	
+	# Movement	
 	state_logic()
 	state_transition()
 	move_and_slide()
@@ -37,8 +41,6 @@ func state_logic():
 			velocity.x = lerpf(velocity.x, -30, 0.5)
 		State.ROLL_LEFT_2:
 			velocity.x = lerpf(velocity.x, -50, 0.7)
-		State.LOOP:
-			pass
 
 func state_transition():
 	match state:
@@ -65,8 +67,6 @@ func state_transition():
 		State.ROLL_LEFT_2:
 			if not Input.is_action_pressed("ui_left"):
 				switch_state(State.ROLL_LEFT_1)
-		State.LOOP:
-			pass
 
 func switch_state(to_state):
 	from_state = state
@@ -91,5 +91,12 @@ func enter(from_state, to_state):
 				animation_player.play_backwards("Left Roll 1")
 		State.ROLL_LEFT_2:
 			animation_player.play("Left Roll 2")
-		State.LOOP:
-			pass
+
+func fire_bullet():
+	var bul = BULLET.instantiate()
+	bul.position = position
+	get_parent().add_child(bul)
+	
+func process_events():
+	if Input.is_action_just_pressed("action A"):
+		fire_bullet()

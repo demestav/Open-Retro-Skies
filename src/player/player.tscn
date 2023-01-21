@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://rs54bq7kh4bn"]
+[gd_scene load_steps=11 format=3 uid="uid://rs54bq7kh4bn"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_6da44"]
 [ext_resource type="Texture2D" uid="uid://b1ss4ewlpqv5" path="res://player/sprite/output.png" id="2_1236f"]
@@ -18,6 +18,56 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_x2yv2"]
+resource_name = "Left Roll 1"
+length = 0.3
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_axpvm"]
+resource_name = "Left Roll 2"
+length = 0.3
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_hrhkd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
 }
 
 [sub_resource type="Animation" id="Animation_tcdx7"]
@@ -55,56 +105,6 @@ tracks/0/keys = {
 "values": [4, 5]
 }
 
-[sub_resource type="Animation" id="Animation_x2yv2"]
-resource_name = "Left Roll 1"
-length = 0.3
-step = 0.15
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [6, 7]
-}
-
-[sub_resource type="Animation" id="Animation_hrhkd"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [6]
-}
-
-[sub_resource type="Animation" id="Animation_axpvm"]
-resource_name = "Left Roll 2"
-length = 0.3
-loop_mode = 1
-step = 0.15
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [8, 9]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_d5n31"]
 _data = {
 "Idle": SubResource("Animation_ftyxt"),
@@ -114,6 +114,9 @@ _data = {
 "Right Roll 1": SubResource("Animation_tcdx7"),
 "Right Roll 2": SubResource("Animation_xnuda")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_folur"]
+size = Vector2(30, 30)
 
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_6da44")
@@ -128,3 +131,6 @@ texture = ExtResource("2_1236f")
 hframes = 2
 vframes = 6
 frame = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_folur")
