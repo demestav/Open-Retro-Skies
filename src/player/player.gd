@@ -30,13 +30,13 @@ func state_logic():
 		State.IDLE:
 			velocity.x = lerpf(velocity.x, 0, 0.5)
 		State.ROLL_RIGHT_1:
-			velocity.x = lerpf(velocity.x, 50, 0.5)
+			velocity.x = lerpf(velocity.x, 30, 0.5)
 		State.ROLL_RIGHT_2:
-			velocity.x = lerpf(velocity.x, 70, 0.7)
+			velocity.x = lerpf(velocity.x, 50, 0.7)
 		State.ROLL_LEFT_1:
-			velocity.x = lerpf(velocity.x, -50, 0.5)
+			velocity.x = lerpf(velocity.x, -30, 0.5)
 		State.ROLL_LEFT_2:
-			velocity.x = lerpf(velocity.x, -70, 0.7)
+			velocity.x = lerpf(velocity.x, -50, 0.7)
 		State.LOOP:
 			pass
 
@@ -79,17 +79,17 @@ func enter(from_state, to_state):
 			animation_player.play("Idle")
 		State.ROLL_RIGHT_1:
 			if from_state == State.IDLE:
-				animation_player.play("Roll 1")
+				animation_player.play("Right Roll 1")
 			elif from_state == State.ROLL_RIGHT_2:
-				animation_player.play_backwards("Roll 1")
+				animation_player.play_backwards("Right Roll 1")
 		State.ROLL_RIGHT_2:
-			animation_player.play("Roll 2")
+			animation_player.play("Right Roll 2")
 		State.ROLL_LEFT_1:
 			if from_state == State.IDLE:
-				animation_player.play("Roll 1")
+				animation_player.play("Left Roll 1")
 			elif from_state == State.ROLL_LEFT_2:
-				animation_player.play_backwards("Roll 1")
+				animation_player.play_backwards("Left Roll 1")
 		State.ROLL_LEFT_2:
-			animation_player.play("Roll 2")
+			animation_player.play("Left Roll 2")
 		State.LOOP:
 			pass
