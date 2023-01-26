@@ -1,6 +1,9 @@
-extends CharacterBody2D
+extends Area2D
+
 @onready var animation_player = $AnimationPlayer
 const BULLET = preload("res://bullet/bullet.tscn")
+var velocity = Vector2(0, 0)
+const MAX_SPEED = 100
 
 enum State {
 	IDLE,
@@ -12,13 +15,12 @@ enum State {
 
 var state = State.IDLE
 var from_state = null
+var screen_size
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
+	screen_size = get_viewport_rect().size	
 	animation_player.play("Idle")
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# Events
 	process_events()
@@ -26,21 +28,30 @@ func _process(delta):
 	# Movement	
 	state_logic()
 	state_transition()
-	move_and_slide()
+	position.x = clamp(position.x, 0, screen_size.x)
+	position += velocity * delta
 
 func state_logic():
 	match state:
 		State.IDLE:
-			velocity.x = lerpf(velocity.x, 0, 0.5)
+			pass
 		State.ROLL_RIGHT_1:
-			velocity.x = lerpf(velocity.x, 30, 0.5)
+			pass
 		State.ROLL_RIGHT_2:
-			velocity.x = lerpf(velocity.x, 50, 0.7)
+			pass
 		State.ROLL_LEFT_1:
-			velocity.x = lerpf(velocity.x, -30, 0.5)
+			pass
 		State.ROLL_LEFT_2:
-			velocity.x = lerpf(velocity.x, -50, 0.7)
-
+			pass
+	
+	# In all states the player can control the character
+	if Input.is_action_pressed("ui_right"):
+		velocity.x = lerpf(velocity.x, MAX_SPEED, 0.1)
+	elif Input.is_action_pressed("ui_left"):
+		velocity.x = lerpf(velocity.x, -MAX_SPEED, 0.1)
+	else:
+		velocity.x = lerpf(velocity.x, 0, 0.1)
+	
 func state_transition():
 	match state:
 		State.IDLE:
@@ -101,5 +112,5 @@ func fire_bullet():
 	
 func process_events():
 	if Input.is_action_just_pressed("action A"):
-		#fire_bullet()
-		pass
+		fire_bullet()
+		
