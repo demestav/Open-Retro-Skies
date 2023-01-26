@@ -107,7 +107,7 @@ func fire_bullet():
 	var dir = Vector2(1, 0).rotated(global_rotation)
 	bul.rotation = dir.angle()
 	bul.init(position, dir)
-	get_tree().get_root().add_child(bul)
+	get_tree().get_root().get_node("Level").add_child(bul)
 
 	
 func process_events():
