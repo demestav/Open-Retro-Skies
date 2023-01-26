@@ -13,7 +13,6 @@ enum State {
 var state = State.IDLE
 var from_state = null
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	animation_player.play("Idle")
@@ -94,9 +93,13 @@ func enter(from_state, to_state):
 
 func fire_bullet():
 	var bul = BULLET.instantiate()
-	bul.position = position
-	get_parent().add_child(bul)
+	var dir = Vector2(1, 0).rotated(global_rotation)
+	bul.rotation = dir.angle()
+	bul.init(position, dir)
+	get_tree().get_root().add_child(bul)
+
 	
 func process_events():
 	if Input.is_action_just_pressed("action A"):
-		fire_bullet()
+		#fire_bullet()
+		pass
