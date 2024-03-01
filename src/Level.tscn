@@ -1,8 +1,49 @@
-[gd_scene load_steps=2 format=3 uid="uid://4eclv0awhvjc"]
+[gd_scene load_steps=3 format=3 uid="uid://4eclv0awhvjc"]
 
 [ext_resource type="PackedScene" uid="uid://rs54bq7kh4bn" path="res://player/player.tscn" id="1_qxlbk"]
 
+[sub_resource type="GDScript" id="GDScript_4mnt3"]
+script/source = "extends Node2D
+
+var waves = preload(\"res://waves/waves.tscn\")
+
+var wave_keys = [
+	\"Wave 1\",
+	\"Wave 2\",
+	\"Wave 3\",
+	\"Wave 4\",
+	\"Wave 5\",
+	\"Wave 6\",
+	\"Wave 7\",
+	\"Wave 8\",
+	\"Wave 9\",
+	\"Wave 10\"
+]
+var wave
+var wave_index = 0
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	wave = waves.instantiate()
+	wave.wave_to_load = wave_keys[wave_index]
+	add_child(wave)
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if wave.state == 3: # State.FINISHED
+		wave_index += 1
+		wave.queue_free()
+		wave = waves.instantiate()
+		wave.wave_to_load = wave_keys[wave_index]
+		add_child(wave)
+		
+		
+		
+"
+
 [node name="Level" type="Node2D"]
+script = SubResource("GDScript_4mnt3")
 
 [node name="Airplane" parent="." instance=ExtResource("1_qxlbk")]
-position = Vector2(81, 350)
+position = Vector2(64, 350)
+rotation = -1.5708

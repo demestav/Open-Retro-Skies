@@ -107,6 +107,7 @@ func fire_bullet():
 	var dir = Vector2(1, 0).rotated(global_rotation)
 	bul.rotation = dir.angle()
 	bul.init(position, dir)
+	bul.target_group_type = "enemy"
 	get_tree().get_root().get_node("Level").add_child(bul)
 
 	
@@ -114,3 +115,5 @@ func process_events():
 	if Input.is_action_just_pressed("action A"):
 		fire_bullet()
 		
+func hit():
+	print("OMG I was hit, I am the player!")

@@ -3,36 +3,41 @@
 [ext_resource type="Script" path="res://enemy/enemy.gd" id="1_ojhe1"]
 [ext_resource type="Texture2D" uid="uid://c6g6cm4s003vp" path="res://enemy/sprite/enemy.png" id="2_v28or"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nhch7"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ruiw7"]
 atlas = ExtResource("2_v28or")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qrs8q"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2epi5"]
 atlas = ExtResource("2_v28or")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_jitps"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_ec3si"]
 animations = [{
-"frames": [SubResource("AtlasTexture_nhch7"), SubResource("AtlasTexture_qrs8q")],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ruiw7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2epi5")
+}],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_byv73"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ndcol"]
 size = Vector2(30, 30)
 
-[node name="enemy" type="Area2D"]
+[node name="enemy" type="Area2D" groups=["enemy"]]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_ojhe1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-frames = SubResource("SpriteFrames_jitps")
-playing = true
+sprite_frames = SubResource("SpriteFrames_ec3si")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_byv73")
+shape = SubResource("RectangleShape2D_ndcol")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(400, 1)

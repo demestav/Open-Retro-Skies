@@ -2,6 +2,7 @@ extends Area2D
 
 var speed = 150
 var velocity = Vector2()
+var target_group_type:String = "enemy"
 
 func _ready():
 	$AnimatedSprite2D.play()
@@ -9,12 +10,9 @@ func _ready():
 func _process(delta):
 	position += velocity * delta
 	
-func _on_body_entered(body):
-	pass
-	
 func _on_area_entered(area):
-	if area.name == "enemy":
-		area.destroy()
+	if area.is_in_group(target_group_type):
+		area.hit()
 	
 func init(pos, direction):
 	position = pos
